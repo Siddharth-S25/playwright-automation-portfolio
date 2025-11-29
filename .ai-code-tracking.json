@@ -1,0 +1,66 @@
+{
+  "version": "1.0",
+  "records": [
+    {
+      "filePath": "C:/Users/Admin/IdeaProjects/playwright-learning-journey/tests/example.spec.js",
+      "timestamp": 1764417323623,
+      "startOffset": 0,
+      "endOffset": 202,
+      "codeContent": "const { test, expect } \u003d require(\u0027@playwright/test\u0027);\n\ntest(\u0027Open Google and check title\u0027, async ({ page }) \u003d\u003e {\n  await page.goto(\u0027https://google.com\u0027);\n  await expect(page).toHaveTitle(/Google/);\n});\n",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 7
+    },
+    {
+      "filePath": "C:/Users/Admin/IdeaProjects/playwright-learning-journey/tests/example.spec.js",
+      "timestamp": 1764420324966,
+      "startOffset": 8,
+      "endOffset": 1093,
+      "codeContent": "defineConfig, devices } \u003d require(\u0027@playwright/test\u0027);\n\nmodule.exports \u003d defineConfig({\n  testDir: \u0027./tests\u0027,\n  \n  // Parallelization\n  fullyParallel: true,\n  forbidOnly: !!process.env.CI,\n  retries: process.env.CI ? 2 : 0,\n  workers: process.env.CI ? 1 : undefined,\n  \n  // Timeout settings\n  timeout: 30 * 1000,\n  expect: { timeout: 5000 },\n  \n  // Reporters\n  reporter: [\n    [\u0027html\u0027],\n    [\u0027json\u0027, { outputFile: \u0027test-results/results.json\u0027 }],\n  ],\n  \n  // Global settings\n  use: {\n    baseURL: \u0027https://example.com\u0027,\n    trace: \u0027on-first-retry\u0027,\n    screenshot: \u0027only-on-failure\u0027,\n    video: \u0027retain-on-failure\u0027,\n  },\n  \n  // Browsers to test\n  projects: [\n    {\n      name: \u0027chromium\u0027,\n      use: { ...devices[\u0027Desktop Chrome\u0027] },\n    },\n    {\n      name: \u0027firefox\u0027,\n      use: { ...devices[\u0027Desktop Firefox\u0027] },\n    },\n    {\n      name: \u0027webkit\u0027,\n      use: { ...devices[\u0027Desktop Safari\u0027] },\n    },\n  ],\n  \n  // Optional: Web server\n  // webServer: {\n  //   command: \u0027npm run server\u0027,\n  //   url: \u0027http://localhost:3000\u0027,\n  //   reuseExistingServer: !process.env.CI,\n  // },\n});",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 52
+    },
+    {
+      "filePath": "C:/Users/Admin/IdeaProjects/playwright-learning-journey/tests/day1-basics.spec.js",
+      "timestamp": 1764420620039,
+      "startOffset": 0,
+      "endOffset": 2355,
+      "codeContent": "const { test, expect } \u003d require(\u0027@playwright/test\u0027);\n\ntest.describe(\u0027DAY 1: Foundations \u0026 Basic Navigation\u0027, () \u003d\u003e {\n  \n  test.beforeEach(async ({ page }) \u003d\u003e {\n    // This runs before every test\n    console.log(\u0027🔵 Starting test...\u0027);\n  });\n\n  test(\u0027TC1.1 - Navigate to website and verify title\u0027, async ({ page }) \u003d\u003e {\n    // Arrange: Navigate to website\n    await page.goto(\u0027https://example.com\u0027);\n    \n    // Assert: Verify title\n    await expect(page).toHaveTitle(/Example/);\n    \n    console.log(\u0027✅ TC1.1 Passed\u0027);\n  });\n\n  test(\u0027TC1.2 - Verify page heading exists\u0027, async ({ page }) \u003d\u003e {\n    // Arrange\n    await page.goto(\u0027https://example.com\u0027);\n    \n    // Assert\n    const heading \u003d page.locator(\u0027h1\u0027);\n    await expect(heading).toBeVisible();\n    \n    console.log(\u0027✅ TC1.2 Passed\u0027);\n  });\n\n  test(\u0027TC1.3 - Test different selector types\u0027, async ({ page }) \u003d\u003e {\n    // Arrange\n    await page.goto(\u0027https://example.com\u0027);\n    \n    // Test CSS selector\n    const cssSelector \u003d page.locator(\u0027a\u0027);\n    await expect(cssSelector).toBeAttached();\n    console.log(\u0027✅ CSS selector works\u0027);\n    \n    // Test text selector\n    const textSelector \u003d page.locator(\u0027text\u003dMore information\u0027);\n    await expect(textSelector).toBeVisible();\n    console.log(\u0027✅ Text selector works\u0027);\n  });\n\n  test(\u0027TC1.4 - Test navigation and go back\u0027, async ({ page }) \u003d\u003e {\n    // Arrange: Start at homepage\n    await page.goto(\u0027https://example.com\u0027);\n    await expect(page).toHaveURL(/example.com/);\n    \n    // Act: Click link\n    await page.locator(\u0027text\u003dMore information\u0027).click();\n    \n    // Assert: URL changed\n    await expect(page).toHaveURL(/.*more-info/);\n    console.log(\u0027✅ Navigation successful\u0027);\n    \n    // Act: Go back\n    await page.goBack();\n    \n    // Assert: Back to original\n    await expect(page).toHaveURL(/example.com/);\n    console.log(\u0027✅ Go back successful\u0027);\n  });\n\n  test(\u0027TC1.5 - Test element visibility checks\u0027, async ({ page }) \u003d\u003e {\n    // Arrange\n    await page.goto(\u0027https://example.com\u0027);\n    const element \u003d page.locator(\u0027h1\u0027);\n    \n    // Assert: Multiple checks\n    await expect(element).toBeVisible();\n    console.log(\u0027✅ Element is visible\u0027);\n    \n    await expect(element).not.toBeHidden();\n    console.log(\u0027✅ Element is not hidden\u0027);\n    \n    await expect(element).toBeAttached();\n    console.log(\u0027✅ Element is attached to DOM\u0027);\n  });\n\n});",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 82
+    },
+    {
+      "filePath": "C:/Users/Admin/IdeaProjects/playwright-learning-journey/tests/day1-basics.spec.js",
+      "timestamp": 1764421251449,
+      "startOffset": 0,
+      "endOffset": 3615,
+      "codeContent": "const { test, expect } \u003d require(\u0027@playwright/test\u0027);\n\ntest.describe(\u0027DAY 1: Foundations \u0026 Basic Navigation\u0027, () \u003d\u003e {\n  \n  test.beforeEach(async ({ page }) \u003d\u003e {\n    // This runs before every test\n    console.log(\u0027🔵 Starting test...\u0027);\n    await page.goto(\u0027https://demo.playwright.dev/todomvc/\u0027);\n  });\n\n  test(\u0027TC1.1 - Navigate to website and verify title\u0027, async ({ page }) \u003d\u003e {\n    // Arrange: Navigate to website (done in beforeEach)\n    \n    // Assert: Verify title contains TodoMVC\n    await expect(page).toHaveTitle(/TodoMVC/);\n    \n    console.log(\u0027✅ TC1.1 Passed - Title verified\u0027);\n  });\n\n  test(\u0027TC1.2 - Verify page heading and input field exist\u0027, async ({ page }) \u003d\u003e {\n    // Arrange: Page loaded (done in beforeEach)\n    \n    // Assert: Verify heading exists\n    const heading \u003d page.locator(\u0027h1\u0027);\n    await expect(heading).toBeVisible();\n    console.log(\u0027✅ Heading found\u0027);\n    \n    // Assert: Verify input field exists\n    const input \u003d page.locator(\u0027input[placeholder\u003d\"What needs to be done?\"]\u0027);\n    await expect(input).toBeVisible();\n    console.log(\u0027✅ Input field found\u0027);\n  });\n\n  test(\u0027TC1.3 - Test different selector types on same element\u0027, async ({ page }) \u003d\u003e {\n    // Arrange\n    const inputField \u003d page.locator(\u0027input[placeholder\u003d\"What needs to be done?\"]\u0027);\n    \n    // Test CSS selector\n    await expect(inputField).toBeAttached();\n    console.log(\u0027✅ CSS selector works\u0027);\n    \n    // Test by role selector (BEST PRACTICE)\n    const inputByRole \u003d page.locator(\u0027role\u003dtextbox\u0027);\n    await expect(inputByRole).toBeVisible();\n    console.log(\u0027✅ Role selector works\u0027);\n    \n    // Test getting by placeholder\n    const inputByPlaceholder \u003d page.locator(\u0027[placeholder*\u003d\"needs\"]\u0027);\n    await expect(inputByPlaceholder).toBeVisible();\n    console.log(\u0027✅ Attribute selector works\u0027);\n  });\n\n  test(\u0027TC1.4 - Test filling input and checking element visibility\u0027, async ({ page }) \u003d\u003e {\n    // Arrange: Get input element\n    const inputField \u003d page.locator(\u0027input[placeholder\u003d\"What needs to be done?\"]\u0027);\n    \n    // Assert: Input is empty initially\n    await expect(inputField).toHaveValue(\u0027\u0027);\n    console.log(\u0027✅ Input is empty\u0027);\n    \n    // Act: Fill the input\n    await inputField.fill(\u0027Learn Playwright\u0027);\n    \n    // Assert: Input has value\n    await expect(inputField).toHaveValue(\u0027Learn Playwright\u0027);\n    console.log(\u0027✅ Input filled successfully\u0027);\n    \n    // Act: Clear it\n    await inputField.clear();\n    \n    // Assert: Input is empty again\n    await expect(inputField).toHaveValue(\u0027\u0027);\n    console.log(\u0027✅ Input cleared successfully\u0027);\n  });\n\n  test(\u0027TC1.5 - Test element visibility and DOM attachment checks\u0027, async ({ page }) \u003d\u003e {\n    // Arrange: Get multiple elements\n    const heading \u003d page.locator(\u0027h1\u0027);\n    const input \u003d page.locator(\u0027input[placeholder\u003d\"What needs to be done?\"]\u0027);\n    const footer \u003d page.locator(\u0027footer\u0027);\n    \n    // Assert: All elements are visible\n    await expect(heading).toBeVisible();\n    console.log(\u0027✅ Heading is visible\u0027);\n    \n    await expect(input).toBeVisible();\n    console.log(\u0027✅ Input is visible\u0027);\n    \n    await expect(footer).toBeVisible();\n    console.log(\u0027✅ Footer is visible\u0027);\n    \n    // Assert: All elements are attached to DOM\n    await expect(heading).toBeAttached();\n    await expect(input).toBeAttached();\n    await expect(footer).toBeAttached();\n    console.log(\u0027✅ All elements attached to DOM\u0027);\n    \n    // Assert: Elements are not hidden\n    await expect(heading).not.toBeHidden();\n    await expect(input).not.toBeHidden();\n    await expect(footer).not.toBeHidden();\n    console.log(\u0027✅ All elements are not hidden\u0027);\n  });\n\n});",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 105
+    },
+    {
+      "filePath": "/playwright.config.js",
+      "timestamp": 1764435362436,
+      "startOffset": 805,
+      "endOffset": 826,
+      "codeContent": "nIntellijIdeaRulezzz ",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    }
+  ],
+  "toolStats": {
+    "AI Assistant": {
+      "usageCount": 5,
+      "totalLines": 247
+    }
+  }
+}
